@@ -17,5 +17,6 @@ module "appservice" {
   location       = var.location
   resourcegroup  = azurerm_resource_group.resourcegroup.name
   naming_prefix  = var.naming_prefix
+  tags =  local.tags
   depends_on = [ azurerm_resource_group.resourcegroup ]
 }
