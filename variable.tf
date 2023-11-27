@@ -22,3 +22,7 @@ variable "tags" {
     description = "App SVC Demo"
   }
 }
+variable "log_analytics_workspace_sku" {
+  description = "The pricing SKU of the Log Analytics workspace."
+  default     = "PerGB2018"
+}
