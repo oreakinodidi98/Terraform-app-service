@@ -5,6 +5,8 @@ on:
     push:
         branches:
             - Dev
+        paths:
+            - '**.tf'
     workflow_dispatch:
 
 env:
