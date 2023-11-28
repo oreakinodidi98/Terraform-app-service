@@ -18,19 +18,24 @@ resource "azurerm_app_service" "app-svc" {
   app_service_plan_id = azurerm_app_service_plan.app-svc-plan.id
 
   site_config {
-    dotnet_framework_version = "v6.0"
+    dotnet_framework_version = "v4.0"
     scm_type                 = "LocalGit" 
     remote_debugging_enabled = true
     remote_debugging_version = "VS2019"
   }
+source_control {
+    repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
+    branch = "Dev"
+    manual_integration = true
+    use_mercurial = false
+}
+#   app_settings = {
+#     "SOME_KEY" = "some-value"
+#   }
 
-  app_settings = {
-    "SOME_KEY" = "some-value"
-  }
-
-  connection_string {
-    name  = "Database"
-    type  = "SQLServer"
-    value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
-  }
+#   connection_string {
+#     name  = "Database"
+#     type  = "SQLServer"
+#     value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+#   }
 }
