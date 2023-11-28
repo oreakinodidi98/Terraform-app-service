@@ -4,8 +4,8 @@ name: 'Terraform Apply'
 on:
     push:
         branches:
-            - dev
-    #workflow_dispatch:
+            - Dev
+    workflow_dispatch:
 
 env:
     ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
