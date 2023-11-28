@@ -19,7 +19,7 @@ resource "azurerm_app_service" "app-svc" {
 
   site_config {
     dotnet_framework_version = "v4.0"
-    scm_type                 = "LocalGit" 
+    #scm_type                 = "None" 
     remote_debugging_enabled = true
     remote_debugging_version = "VS2019"
   }
