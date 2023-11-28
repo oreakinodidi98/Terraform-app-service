@@ -18,7 +18,7 @@ resource "azurerm_app_service" "app-svc" {
   app_service_plan_id = azurerm_app_service_plan.app-svc-plan.id
 
   site_config {
-    dotnet_framework_version = "v4.0"
+    dotnet_framework_version = "v6.0"
     scm_type                 = "LocalGit" 
     remote_debugging_enabled = true
     remote_debugging_version = "VS2019"
