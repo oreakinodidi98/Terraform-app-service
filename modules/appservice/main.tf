@@ -26,7 +26,7 @@ resource "azurerm_app_service" "app-svc" {
 source_control {
     repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
     branch = "main"
-    manual_integration = true
+    manual_integration = false
     use_mercurial = false
 }
 #   app_settings = {
