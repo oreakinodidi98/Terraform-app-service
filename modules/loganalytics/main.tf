@@ -20,6 +20,6 @@ resource "azurerm_log_analytics_solution" "app-svc-insights" {
 
   plan {
     publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
+    product   = "ContainerInsights"
   }
 }
