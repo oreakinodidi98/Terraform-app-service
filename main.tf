@@ -13,19 +13,19 @@ resource "azurerm_resource_group" "resourcegroup" {
 }
 #call the module
 module "appservice" {
-  source         = "./modules/appservice"
-  location       = var.location
-  resourcegroup  = azurerm_resource_group.resourcegroup.name
-  naming_prefix  = var.naming_prefix
-  tags =  local.tags
-  depends_on = [ azurerm_resource_group.resourcegroup ]
+  source        = "./modules/appservice"
+  location      = var.location
+  resourcegroup = azurerm_resource_group.resourcegroup.name
+  naming_prefix = var.naming_prefix
+  tags          = local.tags
+  depends_on    = [azurerm_resource_group.resourcegroup]
 }
 #call the module for log analytics
 module "loganalytics" {
-  source         = "./modules/loganalytics"
-  location       = var.location
-  resourcegroup  = azurerm_resource_group.resourcegroup.name
+  source                      = "./modules/loganalytics"
+  location                    = var.location
+  resourcegroup               = azurerm_resource_group.resourcegroup.name
   log_analytics_workspace_sku = var.log_analytics_workspace_sku
-  naming_prefix  = var.naming_prefix
-  depends_on = [ azurerm_resource_group.resourcegroup ]
+  naming_prefix               = var.naming_prefix
+  depends_on                  = [azurerm_resource_group.resourcegroup]
 }
