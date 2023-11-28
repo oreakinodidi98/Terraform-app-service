@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q1KF31dYB1S5bVimBaBSDm8kEBofd2K6j39sT4G34hq96rbULZ7wO+swqWVEK5RmGkkGHRCh2nPLecnC/FLIEA==",
+  "dgSpecHash": "OFiFFUzMDJ3SaOEgWZVsWOjAsdij9nc21hh3jiBWXkJ4pULYfKEaI6mdfL7uao840AwJW1ppIhvtdBoNPJ1rrg==",
   "success": false,
   "projectFilePath": "C:\\terraform\\appservice\\webapi\\webapi.csproj",
   "expectedPackageFiles": [],
