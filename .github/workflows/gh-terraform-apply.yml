@@ -2,7 +2,7 @@ name: 'Terraform Apply'
 # used GH copilot chat to create this template for me
 # action that provisions infrastructure to Azure
 
-# when to fire off workflo -> push to main branch or manually
+# when to fire off workflol -> push to main branch or manually
 on:
     push:
         branches:
@@ -22,7 +22,7 @@ env:
 
 permissions:
   contents: read
-
+  id-token: write
 jobs:
   terraform:
     name: 'Terraform'
@@ -31,14 +31,40 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-# set up terraform -> download terraform
+# set up terraform -> download terraform on runner machine
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.14.0
+        terraform_wrapper: false
 
     - name: Terraform Init
       run: terraform init
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
+# export terraform outputs to file
+    - name: Export Terraform Outputs
+      id: tf
+      run: |
+          echo "AZURE_WEBAPP_NAME=$(terraform output -raw app_svc_name)" > terraform_vars.txt
+          echo "AZURE_WEBAPP_PUBLISH_PROFILE=$(terraform output -raw app_svc_id)" >> terraform_vars.txt
+          
+# upload file to artifacts         
+    - name: Upload Terraform Variables
+      uses: actions/upload-artifact@v2
+      with:
+          name: terraform_output_file
+          path: terraform_out.txt
+# Logs in with your Azure credentials
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.ARM_CLIENT_ID }}
+        tenant-id: ${{ secrets.ARM_TENANT_ID }}
+        subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+# Upload the file to Azure Blob Storage
+    - name: Upload to Azure Blob Storage
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_out.txt --type block --file terraform_out.txt --container-name ${{ secrets.CONTAINER_NAME }} --overwrite
