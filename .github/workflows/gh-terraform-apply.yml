@@ -1,6 +1,8 @@
 name: 'Terraform Apply'
 # used GH copilot chat to create this template for me
 # action that provisions infrastructure to Azure
+
+# when to fire off workflo -> push to main branch or manually
 on:
     push:
         branches:
@@ -14,7 +16,10 @@ env:
     ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
     ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
     ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
-
+    TF_LOG: INFO
+    TF_INPUT: false
+    TF_IN_AUTOMATION: true
+    
 permissions:
   contents: read
 
@@ -22,11 +27,11 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-
+# download the repository to the runner -> checkout
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
+# set up terraform -> download terraform
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
