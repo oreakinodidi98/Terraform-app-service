@@ -9,6 +9,8 @@ on:
             - main
         paths:
             - '**.tf'
+    pull_request:
+      branches: [ "main" ]
     workflow_dispatch:
 
 env:
@@ -19,7 +21,7 @@ env:
     TF_LOG: INFO
     TF_INPUT: false
     TF_IN_AUTOMATION: true
-    
+
 permissions:
   contents: read
 

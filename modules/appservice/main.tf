@@ -19,16 +19,16 @@ resource "azurerm_app_service" "app-svc" {
 
   site_config {
     dotnet_framework_version = "v4.0"
-    #scm_type                 = "LocalGit" 
+    scm_type                 = "LocalGit" 
     remote_debugging_enabled = true
     remote_debugging_version = "VS2019"
   }
-source_control {
-    repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
-    branch = "main"
-    manual_integration = true
-    use_mercurial = false
-}
+# source_control {
+#     repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
+#     branch = "main"
+#     manual_integration = true
+#     use_mercurial = false
+# }
 #   app_settings = {
 #     "SOME_KEY" = "some-value"
 #   }
