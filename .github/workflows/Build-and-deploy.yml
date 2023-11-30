@@ -26,13 +26,19 @@ env:
 
 
 on:
-  workflow_run:
-    types:
-      - completed
-    workflows:
-      - "Terraform Apply"
-  workflow_dispatch:
-
+    workflow_run:
+        types:
+          - completed
+        workflows:
+          - "Terraform Apply"
+        branches:
+          - main
+    push:
+        branches:
+          - main
+        paths:
+          - 'webapp/**'
+    workflow_dispatch:
 permissions:
     contents: read
     id-token: write
