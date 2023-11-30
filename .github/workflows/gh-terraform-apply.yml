@@ -9,8 +9,6 @@ on:
             - main
         paths:
             - '**.tf'
-    pull_request:
-      branches: [ "main" ]
     workflow_dispatch:
 
 env:
