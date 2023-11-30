@@ -23,3 +23,10 @@ resource "azurerm_log_analytics_solution" "app-svc-insights" {
     product   = "ContainerInsights"
   }
 }
+resource "azurerm_application_insights" "app-svc" {
+  name                = "${var.naming_prefix}-app-insight"
+  location            = var.location
+  resource_group_name = var.resourcegroup
+  application_type    = "web"
+  workspace_id = azurerm_log_analytics_workspace.app-svc.id
+}
