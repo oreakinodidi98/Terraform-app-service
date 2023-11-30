@@ -34,6 +34,7 @@ output "source_control_resource_id" {
 # output instrumentation key
 output "instrumentation_key" {
   value = module.loganalytics.instrumentation_key
+  sensitive = true
 }
 # output app insights id
 output "app_id" {
