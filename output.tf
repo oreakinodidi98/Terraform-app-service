@@ -31,3 +31,11 @@ output "log_analytics_workspace_id" {
 output "source_control_resource_id" {
   value = module.appservice.source_control_resource_id
 }
+# output instrumentation key
+output "instrumentation_key" {
+  value = module.loganalytics.instrumentation_key
+}
+# output app insights id
+output "app_id" {
+  value = module.loganalytics.app_id
+}
