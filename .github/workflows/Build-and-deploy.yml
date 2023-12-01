@@ -78,7 +78,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-
+          path: ./webapp/myapp
           # Logs in with your Azure credentials
       - name: Azure login
         uses: azure/login@v1
