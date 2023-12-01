@@ -29,4 +29,5 @@ module "loganalytics" {
   log_analytics_workspace_sku = var.log_analytics_workspace_sku
   naming_prefix               = var.naming_prefix
   depends_on                  = [azurerm_resource_group.resourcegroup]
+  appsvcid                    = module.appservice.app_svc_id
 }
