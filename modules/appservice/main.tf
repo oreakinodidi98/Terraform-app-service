@@ -40,6 +40,18 @@ resource "azurerm_linux_web_app" "app-svc" {
 resource "azurerm_linux_web_app_slot" "dev-app-svc" {
   name           = "Development"
   app_service_id = azurerm_linux_web_app.app-svc.id
-
-  site_config {}
+  app_settings = {
+      "APPINSIGHTS_INSTRUMENTATIONKEY" = var.instrumentation_key 
+      }
+  site_config {
+        remote_debugging_enabled = true
+    remote_debugging_version = "VS2019"
+  }
+}
+resource "azurerm_app_service_source_control_slot" "dev-app-svc-git" {
+  slot_id  = azurerm_linux_web_app_slot.dev-app-svc.id
+  repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
+  branch   = "main"
+  use_manual_integration = false
+  use_mercurial = false
 }

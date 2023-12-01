@@ -6,6 +6,10 @@ output "resource_group_name" {
 output "app_svc_name" {
   value = module.appservice.app_svc_name
 }
+# output dev web app name
+output "dev_app_svc_name" {
+  value = module.appservice.dev_app_svc_name
+}
 # output web app id
 output "app_svc_id" {
   value = module.appservice.app_svc_id
@@ -19,6 +23,10 @@ output "app_svc_plan_name" {
 output "app_svc_plan_id" {
   value = module.appservice.app_svc_plan_id
 }
+# output dev app service plan id
+output "dev_app_svc_id" {
+  value = module.appservice.dev_app_svc_id
+}
 # output log analytics workspace name
 output "log_analytics_workspace_name" {
   value = module.loganalytics.log_analytics_workspace_name
@@ -27,10 +35,14 @@ output "log_analytics_workspace_name" {
 output "log_analytics_workspace_id" {
   value = module.loganalytics.log_analytics_workspace_id
 }
-# output source control resource id
+# # output source control resource id
 # output "source_control_resource_id" {
 #   value = module.appservice.source_control_resource_id
 # }
+# output dev source control resource id
+output "dev_source_control_resource_id" {
+  value = module.appservice.dev_source_control_resource_id
+}
 # output instrumentation key
 output "instrumentation_key" {
   value     = module.loganalytics.instrumentation_key
