@@ -56,10 +56,10 @@ jobs:
         working-directory: ./webapp
         # Upload the artifact to GitHub 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ./myapp
+          path: ./webapp/myapp
 
 #deploy job
   deploy:
@@ -78,7 +78,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-
+          path: ./webapp/myapp
           # Logs in with your Azure credentials
       - name: Azure login
         uses: azure/login@v1
@@ -113,4 +113,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./myapp
+          package: ./webapp/myapp
