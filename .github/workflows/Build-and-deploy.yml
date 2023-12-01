@@ -113,4 +113,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./myapp
+          package: /home/runner/work/Terraform-app-service/Terraform-app-service/.net-app
