@@ -28,9 +28,9 @@ output "log_analytics_workspace_id" {
   value = module.loganalytics.log_analytics_workspace_id
 }
 # output source control resource id
-output "source_control_resource_id" {
-  value = module.appservice.source_control_resource_id
-}
+# output "source_control_resource_id" {
+#   value = module.appservice.source_control_resource_id
+# }
 # output instrumentation key
 output "instrumentation_key" {
   value     = module.loganalytics.instrumentation_key
