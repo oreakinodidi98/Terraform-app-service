@@ -43,7 +43,7 @@ resource "azurerm_monitor_action_group" "actiongroup" {
 resource "azurerm_monitor_metric_alert" "metric" {
   name                = "${var.naming_prefix}-metricalert"
   resource_group_name = var.resourcegroup
-  scopes              = var.appsvcid
+  scopes              = [var.appsvcid]
   description         = "Action will be triggered when Transactions count is greater than 50."
 
   criteria {
