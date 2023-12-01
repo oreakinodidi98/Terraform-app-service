@@ -48,6 +48,7 @@ jobs:
       run: |
           echo "AZURE_WEBAPP_NAME=$(terraform output -raw app_svc_name)" >> terraform_out.txt
           echo "AZURE_WEBAPP_PUBLISH_PROFILE=$(terraform output -raw app_svc_id)" >> terraform_out.txt
+          echo "AZURE_RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> terraform_out.txt
           
 # upload file to artifacts         
     - name: Upload Terraform Variables
