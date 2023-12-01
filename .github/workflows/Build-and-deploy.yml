@@ -110,7 +110,7 @@ jobs:
             key=$(echo $line | cut -d = -f 1)
             value=$(echo $line | cut -d = -f 2-)
             echo "$key=$value" >> $GITHUB_ENV
-          done < terraform_vars.txt
+          done < terraform_out.txt
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
