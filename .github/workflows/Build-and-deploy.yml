@@ -62,7 +62,7 @@ jobs:
           path: ./webapp/myapp
 
 #deploy job
-  deploy:
+  deploy_dev:
     permissions:
       contents: read
       id-token: write
@@ -115,3 +115,57 @@ jobs:
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ./webapp/myapp
           slot-name: Development
+#deploy job
+  deploy_test:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    # set dependency on build job
+    needs: [build, deploy_dev]
+    environment:
+      name: 'Test'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+      # download the artifact from build job
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: .net-app
+          path: ./webapp/myapp
+          # Logs in with your Azure credentials
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+# Download the file from Azure Blob Storage
+      - name: Download from Azure Blob Storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob download --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_out.txt --file terraform_out.txt --container-name ${{ secrets.CONTAINER_NAME }} --overwrite           
+# Load the file content into environment variables
+      - name: Load file content into environment variable
+        run: |
+          while IFS= read -r line; do
+            key=$(echo $line | cut -d = -f 1)
+            value=$(echo $line | cut -d = -f 2-)
+            echo "$key=$value" >> $GITHUB_ENV
+          done < terraform_out.txt
+# download publish profile from Azure Web App set it as variable for deployment
+      - name: Download publish profile
+        run: |
+          az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
+          az webapp deployment list-publishing-profiles --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --query "[0].publishingPassword" -o tsv
+          echo "AZURE_WEBAPP_PUBLISH_PROFILE=$PUBLISH_PROFILE" >> $GITHUB_ENV
+# publish the app to Azure Web App
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./webapp/myapp
+          slot-name: Test

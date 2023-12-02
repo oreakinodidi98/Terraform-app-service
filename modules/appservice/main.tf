@@ -57,3 +57,14 @@ resource "azurerm_linux_web_app_slot" "dev-app-svc" {
 #   use_manual_integration = false
 #   use_mercurial = false
 # }
+resource "azurerm_linux_web_app_slot" "test-app-svc" {
+  name           = "Test"
+  app_service_id = azurerm_linux_web_app.app-svc.id
+  app_settings = {
+      "APPINSIGHTS_INSTRUMENTATIONKEY" = var.instrumentation_key 
+      }
+  site_config {
+        remote_debugging_enabled = true
+    remote_debugging_version = "VS2019"
+  }
+}
