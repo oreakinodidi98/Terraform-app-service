@@ -13,6 +13,8 @@ resource "azurerm_linux_web_app" "app-svc" {
         # Configuration for Azure Application Insights
   app_settings = {
       "APPINSIGHTS_INSTRUMENTATIONKEY" = var.instrumentation_key 
+      "WEBSITE_RUN_FROM_PACKAGE" = 1
+      "WEBSITE_ENABLE_SYNC_UPDATE_SITE" = true
       }
         site_config {
     // other site_config settings...
@@ -30,13 +32,13 @@ resource "azurerm_linux_web_app" "app-svc" {
 #   }
 # }
 }
-# resource "azurerm_app_service_source_control" "app-svc-git" {
-#   app_id   = azurerm_linux_web_app.app-svc.id
-#   repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
-#   branch   = "main"
-#   use_manual_integration = false
-#   use_mercurial = false
-# }
+resource "azurerm_app_service_source_control" "app-svc-git" {
+  app_id   = azurerm_linux_web_app.app-svc.id
+  repo_url = "https://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@github.com/oreakinodidi98/Terraform-app-service"
+  branch   = "main"
+  use_manual_integration = false
+  use_mercurial = false
+}
 resource "azurerm_linux_web_app_slot" "dev-app-svc" {
   name           = "Development"
   app_service_id = azurerm_linux_web_app.app-svc.id
@@ -48,10 +50,10 @@ resource "azurerm_linux_web_app_slot" "dev-app-svc" {
     remote_debugging_version = "VS2019"
   }
 }
-resource "azurerm_app_service_source_control_slot" "dev-app-svc-git" {
-  slot_id  = azurerm_linux_web_app_slot.dev-app-svc.id
-  repo_url = "https://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@github.com/oreakinodidi98/Terraform-app-service"
-  branch   = "main"
-  use_manual_integration = false
-  use_mercurial = false
-}
+# resource "azurerm_app_service_source_control_slot" "dev-app-svc-git" {
+#   slot_id  = azurerm_linux_web_app_slot.dev-app-svc.id
+#   repo_url = "https://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@github.com/oreakinodidi98/Terraform-app-service"
+#   branch   = "main"
+#   use_manual_integration = false
+#   use_mercurial = false
+# }
