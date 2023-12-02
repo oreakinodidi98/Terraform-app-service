@@ -16,9 +16,9 @@ output "app_svc_plan_name" {
 output "app_svc_plan_id" {
   value = azurerm_service_plan.app-svc-plan.id
 }
-# output "source_control_resource_id" {
-#   value = azurerm_app_service_source_control.app-svc-git.id
-# }
-output "dev_source_control_resource_id" {
-  value = azurerm_app_service_source_control_slot.dev-app-svc-git.id
+output "source_control_resource_id" {
+  value = azurerm_app_service_source_control.app-svc-git.id
 }
+# output "dev_source_control_resource_id" {
+#   value = azurerm_app_service_source_control_slot.dev-app-svc-git.id
+# }
