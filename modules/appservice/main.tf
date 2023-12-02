@@ -32,13 +32,13 @@ resource "azurerm_linux_web_app" "app-svc" {
 #   }
 # }
 }
-resource "azurerm_app_service_source_control" "app-svc-git" {
-  app_id   = azurerm_linux_web_app.app-svc.id
-  repo_url = "https://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@github.com/oreakinodidi98/Terraform-app-service"
-  branch   = "main"
-  use_manual_integration = false
-  use_mercurial = false
-}
+# resource "azurerm_app_service_source_control" "app-svc-git" {
+#   app_id   = azurerm_linux_web_app.app-svc.id
+#   repo_url = "https://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@github.com/oreakinodidi98/Terraform-app-service"
+#   branch   = "main"
+#   use_manual_integration = false
+#   use_mercurial = false
+# }
 resource "azurerm_linux_web_app_slot" "dev-app-svc" {
   name           = "Development"
   app_service_id = azurerm_linux_web_app.app-svc.id
