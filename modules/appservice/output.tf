@@ -4,11 +4,18 @@ output "app_svc_name" {
 output "dev_app_svc_name" {
   value = azurerm_linux_web_app_slot.dev-app-svc.name
 }
+output "test_app_svc_name" {
+  value = azurerm_linux_web_app_slot.test-app-svc.name
+}
 output "app_svc_id" {
   value = azurerm_linux_web_app.app-svc.id
 }
 output "dev_app_svc_id" {
   value = azurerm_linux_web_app_slot.dev-app-svc.id
+}
+
+output "test_app_svc_id" {
+  value = azurerm_linux_web_app_slot.test-app-svc.id
 }
 output "app_svc_plan_name" {
   value = azurerm_service_plan.app-svc-plan.name

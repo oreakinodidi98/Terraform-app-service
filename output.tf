@@ -27,6 +27,10 @@ output "app_svc_plan_id" {
 output "dev_app_svc_id" {
   value = module.appservice.dev_app_svc_id
 }
+# output test app service plan id
+output "test_app_svc_id" {
+  value = module.appservice.test_app_svc_id
+}
 # output log analytics workspace name
 output "log_analytics_workspace_name" {
   value = module.loganalytics.log_analytics_workspace_name
