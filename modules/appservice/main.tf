@@ -50,13 +50,13 @@ resource "azurerm_linux_web_app_slot" "dev-app-svc" {
     remote_debugging_version = "VS2019"
   }
 }
-resource "azurerm_app_service_source_control_slot" "dev-app-svc-git" {
-  slot_id  = azurerm_linux_web_app_slot.dev-app-svc.id
-  repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
-  branch   = "main"
-  use_manual_integration = false
-  use_mercurial = false
-}
+# resource "azurerm_app_service_source_control_slot" "dev-app-svc-git" {
+#   slot_id  = azurerm_linux_web_app_slot.dev-app-svc.id
+#   repo_url = "https://github.com/oreakinodidi98/Terraform-app-service"
+#   branch   = "main"
+#   use_manual_integration = false
+#   use_mercurial = false
+# }
 resource "azurerm_linux_web_app_slot" "test-app-svc" {
   name           = "Test"
   app_service_id = azurerm_linux_web_app.app-svc.id
