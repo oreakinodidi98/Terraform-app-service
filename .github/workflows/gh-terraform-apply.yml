@@ -2,7 +2,6 @@ name: 'Terraform Apply'
 # used GH copilot chat to create this template for me
 # action that provisions infrastructure to Azure
 
-# when to fire off workflol -> push to main branch or manually
 on:
     push:
         branches:
@@ -47,10 +46,12 @@ jobs:
       id: tf
       run: |
           echo "AZURE_WEBAPP_NAME=$(terraform output -raw app_svc_name)" >> terraform_out.txt
-          echo "AZURE_WEBAPP_PUBLISH_PROFILE=$(terraform output -raw app_svc_id)" >> terraform_out.txt
+          echo "AZURE_WEBAPP_ID=$(terraform output -raw app_svc_id)" >> terraform_out.txt
           echo "AZURE_RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> terraform_out.txt
           echo "DEV_AZURE_WEBAPP_NAME=$(terraform output -raw dev_app_svc_name)" >> terraform_out.txt
-          echo "DEV_AZURE_WEBAPP_PUBLISH_PROFILE=$(terraform output -raw dev_app_svc_id)" >> terraform_out.txt
+          echo "DEV_AZURE_WEBAPP_ID=$(terraform output -raw dev_app_svc_id)" >> terraform_out.txt
+          echo "TEST_AZURE_WEBAPP_NAME=$(terraform output -raw test_app_svc_name)" >> terraform_out.txt
+          echo "TEST_AZURE_WEBAPP_ID=$(terraform output -raw test_app_svc_id)" >> terraform_out.txt
           
 # upload file to artifacts         
     - name: Upload Terraform Variables
