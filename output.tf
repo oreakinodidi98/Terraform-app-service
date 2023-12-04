@@ -10,6 +10,10 @@ output "app_svc_name" {
 output "dev_app_svc_name" {
   value = module.appservice.dev_app_svc_name
 }
+# output Test web app name
+output "test_app_svc_name" {
+  value = module.appservice.test_app_svc_name
+}
 # output web app id
 output "app_svc_id" {
   value = module.appservice.app_svc_id
