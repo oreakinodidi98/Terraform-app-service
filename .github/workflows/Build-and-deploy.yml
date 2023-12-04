@@ -104,15 +104,15 @@ jobs:
       - name: Download publish profile
         run: |
           az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
-          az webapp deployment list-publishing-profiles --name ${{ env.DEV_AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --query "[0].publishingPassword" -o tsv
-          echo "DEV_AZURE_WEBAPP_PUBLISH_PROFILE=$PUBLISH_PROFILE" >> $GITHUB_ENV
+          az webapp deployment list-publishing-profiles --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --query "[0].publishingPassword" -o tsv
+          echo "AZURE_WEBAPP_PUBLISH_PROFILE=$PUBLISH_PROFILE" >> $GITHUB_ENV
 # publish the app to Azure Web App
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ env.DEV_AZURE_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ./webapp/myapp
           slot-name: Development
 #deploy job
@@ -158,14 +158,14 @@ jobs:
       - name: Download publish profile
         run: |
           az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
-          az webapp deployment list-publishing-profiles --name ${{ env.TEST_AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --query "[0].publishingPassword" -o tsv
-          echo "TEST_AZURE_WEBAPP_PUBLISH_PROFILE=$PUBLISH_PROFILE" >> $GITHUB_ENV
+          az webapp deployment list-publishing-profiles --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --query "[0].publishingPassword" -o tsv
+          echo "AZURE_WEBAPP_PUBLISH_PROFILE=$PUBLISH_PROFILE" >> $GITHUB_ENV
 # publish the app to Azure Web App
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ env.TEST_AZURE_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ./webapp/myapp
           slot-name: Test
